@@ -1,4 +1,4 @@
-akhkusu-1 ansible_host=192.168.42.151 ansible_port=15122 ansible_user=ubuntu
+akhkusu-1 ansible_host=193.40.156.67 ansible_port=28422 ansible_user=ubuntu
 
 
 [web_servers]

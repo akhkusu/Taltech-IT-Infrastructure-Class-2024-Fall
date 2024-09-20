@@ -1,5 +1,16 @@
-- name: Install Nginx and exporter
+- name: Install Nginx
   ansible.builtin.apt:
-    name: 
-      - nginx
+    name: nginx
     state: present
+
+- name: copy nginx config
+  ansible.builtin.copy:
+    src: default
+    dest: /etc/nginx/sites-enabled/default
+  notify: Restart Nginx
+
+- name: ngnix service start
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true

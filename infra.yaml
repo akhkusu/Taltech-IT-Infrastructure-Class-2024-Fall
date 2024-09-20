@@ -10,6 +10,10 @@
   - name: Web_servers
     hosts: web_servers
     roles:
+     - agama
+     - uwsgi
      - nginx
-    tags:
-     - nginx
+    
+
+     # important order -  agama, uwsgi, nginx   
+
