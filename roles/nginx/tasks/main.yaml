@@ -1,0 +1,5 @@
+- name: Install Nginx and exporter
+  ansible.builtin.apt:
+    name: 
+      - nginx
+    state: present

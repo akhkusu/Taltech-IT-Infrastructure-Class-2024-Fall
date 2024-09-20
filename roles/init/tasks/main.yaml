@@ -1,0 +1,43 @@
+---
+
+  # - name: Ansible ping module
+  #   ansible.builtin.ping:
+
+
+
+- name: Add user juri
+  ansible.builtin.user:
+   user: juri
+
+
+
+
+- name: Add user roman
+  ansible.builtin.user:
+   user: roman
+
+
+
+
+- name: Add user juri authorized key
+  ansible.posix.authorized_key:
+    user: juri
+    state: present
+    key: https://github.com/hudolejev.keys
+
+
+
+
+- name: Add user juri authorized key
+  ansible.posix.authorized_key:
+    user: roman
+    state: present
+    key: https://github.com/romankuchin.keys
+
+
+
+
+
+- name: Update APT cache
+  ansible.builtin.apt:
+    cache_valid_time: 86400

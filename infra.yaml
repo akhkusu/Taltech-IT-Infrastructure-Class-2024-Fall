@@ -1,0 +1,15 @@
+---
+  - name: Initial setup
+    hosts: all
+    roles:
+      - init
+    tags:
+      - init
+
+  
+  - name: Web_servers
+    hosts: web_servers
+    roles:
+     - nginx
+    tags:
+     - nginx
