@@ -5,7 +5,12 @@
       - init
     tags:
       - init
-
+      
+  - name: Database server
+    hosts: db_servers
+    roles:
+     - mysql
+     
   
   - name: Web_servers
     hosts: web_servers

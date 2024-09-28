@@ -1,0 +1,39 @@
+---
+- name: install MySQL
+  ansible.builtin.apt:
+    name: mysql-server
+    state: present
+
+- name: Manage mysql host
+  ansible.builtin.template:
+    src:  override.cnf.j2
+    dest: /etc/mysql/mysql.conf.d/override.cnf
+    mode: '0644'
+  notify: Restart mysql
+
+
+- name: install PyMySQL
+  ansible.builtin.apt: 
+    name: python3-pymysql
+    state: present
+
+- name: Create MySQL database
+  community.mysql.mysql_db:
+    name: "{{ mysql_database }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: MySQL user
+  community.mysql.mysql_user:
+    host: "%"
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    priv: "{{ mysql_database }}.*:ALL"
+
+
+
+- name: Make sure mysql is running
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: true
