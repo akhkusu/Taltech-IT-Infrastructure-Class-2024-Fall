@@ -1,0 +1,10 @@
+- name: Resolv.conf
+  template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+
+- name: Stop systemd-resolved
+  systemd:
+    name: systemd-resolved
+    enabled: no 
+    state: stopped

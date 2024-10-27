@@ -5,6 +5,19 @@
       - init
     tags:
       - init
+
+  - name: Bind9
+    hosts: dns_servers
+    roles:
+      - bind
+    tags: bind
+
+  - name: dns
+    hosts: all
+    roles:
+      - dns 
+    tags: dns
+
       
   - name: Database server
     hosts: db_servers

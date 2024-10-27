@@ -1,0 +1,41 @@
+---
+- name: install bind9
+  ansible.builtin.apt:
+    name: bind9
+    state: present
+
+
+- name: copy conf.options
+  ansible.builtin.template:
+    dest: /etc/bind/named.conf.{{ item }}
+    src: named.conf.{{ item }}.j2
+  loop:
+    - options
+    - local
+  notify: 
+    - Restart bind9
+    - RNDC Reload
+
+- name: copy zone
+  ansible.builtin.template:
+    dest: /var/cache/bind/db.ak.io
+    src: zone.j2 
+  notify: 
+    - Restart bind9
+    - RNDC Reload
+
+- name: bind service start
+  ansible.builtin.service:
+    name: bind9
+    state: started
+    enabled: true
+
+
+
+
+
+
+
+
+
+    

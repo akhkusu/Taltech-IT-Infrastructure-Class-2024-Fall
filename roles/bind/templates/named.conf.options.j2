@@ -1,0 +1,12 @@
+acl akinet { {{ localnetwork }}; {{ localhost }}; }; 
+
+options {
+        directory "/var/cache/bind";
+        forwarders {
+           {% for n in dns_forwarders %}
+           {{ n -}};
+           {% endfor %}
+        };
+        allow-query { akinet; };
+        dnssec-validation no;
+};
