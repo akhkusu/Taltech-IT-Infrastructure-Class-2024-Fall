@@ -1,5 +1,5 @@
-vm1 ansible_host=193.40.156.67 ansible_port=19822 ansible_user=ubuntu
-vm2 ansible_host=193.40.156.67 ansible_port=10722 ansible_user=ubuntu
+vm1 ansible_host=193.40.156.67 ansible_port=40222 ansible_user=ubuntu
+vm2 ansible_host=193.40.156.67 ansible_port=27422 ansible_user=ubuntu
 
 
 
@@ -14,4 +14,8 @@ vm1
 
 
 [dns_servers]
+vm2
+
+
+[prometheus]
 vm2
