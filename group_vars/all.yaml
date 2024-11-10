@@ -1,5 +1,9 @@
-# MySQL
 
+# Common
+public_url: http://{{ ansible_host }}:{{ ansible_port//100}}80 
+
+
+# MySQL
 mysql_host: vm2
 mysql_database: agama
 mysql_user: agama
@@ -20,4 +24,10 @@ dns_forwarders:
   - 1.1.1.1
   - 8.8.8.8
 localhost: 127.0.0.0/8
-localnetwork: 192.168.42.0/24
+localnetwork: "{{ ansible_default_ipv4.network }}/24"
+
+# Prometheus
+prometheus_port: 9090
+prometheus_exporters:
+  node:
+    port: 9100

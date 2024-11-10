@@ -30,8 +30,19 @@
     roles:
      - agama
      - uwsgi
-     - nginx
-    
+        
+  - name: Nginx
+    hosts: all
+    roles:
+      - nginx
+    tags: prometheus
+
+  - name: Prometheus
+    hosts: prometheus
+    roles:
+      - prometheus
+    tags: prometheus
+      
 
      # important order -  agama, uwsgi, nginx   
 

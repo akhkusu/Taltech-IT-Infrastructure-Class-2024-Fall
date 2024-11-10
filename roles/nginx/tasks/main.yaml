@@ -3,11 +3,12 @@
     name: nginx
     state: present
 
-- name: copy nginx config
-  ansible.builtin.copy:
-    src: default
+- name: Copy default.j2 
+  ansible.builtin.template:
+    src: default.j2 
     dest: /etc/nginx/sites-enabled/default
-  notify: Restart Nginx
+  notify:
+    - Restart Nginx
 
 - name: ngnix service start
   ansible.builtin.service:
