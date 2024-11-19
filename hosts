@@ -1,5 +1,5 @@
-vm1 ansible_host=193.40.156.67 ansible_port=35422 ansible_user=ubuntu
-vm2 ansible_host=193.40.156.67 ansible_port=44222 ansible_user=ubuntu
+vm1 ansible_host=193.40.156.67 ansible_port=13722 ansible_user=ubuntu
+vm2 ansible_host=193.40.156.67 ansible_port=17222 ansible_user=ubuntu
 
 
 
