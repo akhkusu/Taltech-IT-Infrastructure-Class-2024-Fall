@@ -44,5 +44,12 @@
     tags: prometheus
       
 
+    
+  - name: Grafana 
+    hosts: grafana
+    roles:
+      - grafana
+    tags: grafana
+
      # important order -  agama, uwsgi, nginx   
 

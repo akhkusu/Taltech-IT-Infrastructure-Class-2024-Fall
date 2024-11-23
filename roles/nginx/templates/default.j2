@@ -13,10 +13,26 @@ server {
     proxy_pass http://localhost:{{ prometheus_exporters['node']['port'] }}/metrics;
   }
 
-{% if inventory_hostname in groups['dns_servers'] %}
+{% if inventory_hostname in groups['prometheus'] %}
   location /prometheus {
     proxy_pass http://localhost:{{ prometheus_port }};
   }
 {% endif %}
 
+
+{% if inventory_hostname in groups['grafana'] %}
+  location /grafana {
+    proxy_pass http://localhost:{{ grafana_port }};
+    proxy_set_header Host $http_host;
+  }
+{% endif %}
+
+
+}
+
+server {
+        listen {{ stub_status_port }} default_server;
+        location = /stub_status {
+                stub_status;
+        }
 }

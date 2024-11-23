@@ -24,11 +24,22 @@
     - Restart bind9
     - RNDC Reload
 
-- name: bind service start
+
+#Exporter 
+
+- name: Install prometheus-bind-exporter
+  apt:
+    name: prometheus-bind-exporter
+
+
+- name: Make sure bind9 and exporter are running
   ansible.builtin.service:
-    name: bind9
+    name: "{{ item }}"
     state: started
     enabled: true
+  loop:
+    - bind9
+    - prometheus-bind-exporter
 
 
 

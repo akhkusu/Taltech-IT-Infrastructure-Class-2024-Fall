@@ -3,3 +3,8 @@
   ansible.builtin.service:
     name: mysql
     state: restarted
+
+- name: Restart MySQL Exporter 
+  service:
+    name: prometheus-mysqld-exporter
+    state: restarted
