@@ -27,9 +27,31 @@
 
 #Exporter 
 
-- name: Install prometheus-bind-exporter
-  apt:
-    name: prometheus-bind-exporter
+- name: Download Bind9 Exporter archive
+  ansible.builtin.get_url:
+    url: https://github.com/prometheus-community/bind_exporter/releases/download/v0.6.1/bind_exporter-0.6.1.linux-amd64.tar.gz
+    dest: /opt/bind_exporter-0.6.1.tar.gz
+    mode: '0644'
+
+- name: Extract Bind9 Exporter archive
+  ansible.builtin.unarchive:
+    src: /opt/bind_exporter-0.6.1.tar.gz
+    dest: /opt/
+    remote_src: yes
+
+- name: Create symbolic link to exporter executable
+  ansible.builtin.file:
+    src: /opt/bind_exporter-0.6.1.linux-amd64/bind_exporter
+    dest: /usr/local/bin/prometheus-bind-exporter
+    state: link
+
+- name: Create systemd service definition for Bind9 Exporter
+  ansible.builtin.template:
+    src: bind_exporter.service.j2
+    dest: /etc/systemd/system/bind_exporter.service
+    mode: '0644'
+  notify: 
+    - Reload systemd daemon
 
 
 - name: Make sure bind9 and exporter are running
@@ -39,7 +61,8 @@
     enabled: true
   loop:
     - bind9
-    - prometheus-bind-exporter
+    - bind_exporter
+    
 
 
 

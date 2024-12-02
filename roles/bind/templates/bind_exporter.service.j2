@@ -1,0 +1,12 @@
+[Unit]
+Description=Prometheus Bind9 Exporter
+After=network.target
+
+[Service]
+User=bind
+Group=bind
+ExecStart=/usr/local/bin/prometheus-bind-exporter
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
