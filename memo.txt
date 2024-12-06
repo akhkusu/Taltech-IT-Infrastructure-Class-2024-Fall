@@ -1,0 +1,7 @@
+grafana
+
+
+prometheus-nginx
+
+backup A record in zone.j2 should be replaced by A record job 
+
