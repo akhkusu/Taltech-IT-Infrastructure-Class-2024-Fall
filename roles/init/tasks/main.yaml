@@ -42,7 +42,71 @@
   ansible.builtin.apt:
     cache_valid_time: 86400
 
+
+# - name: Download certificates
+#   apt:
+#     name: ca-certificates=20230311ubuntu0.20.04.1
+#     update_cache: true
+
+
 - name: Install Prometheus node exporters
   ansible.builtin.apt:
     name: prometheus-node-exporter
     state: present
+
+
+
+- name: Modify rsyslog conf file
+  ansible.builtin.template:
+    src: rsyslog-tel.conf.j2
+    dest: /etc/rsyslog.d/tel.conf
+  notify: Restart rsyslog
+
+# - name: Create backup user
+#   user:
+#     name: backup
+#     home: /home/backup
+#     generate_ssh_key: true
+#     ssh_key_file: /home/backup/.ssh/id_rsa
+
+# - name: Add backup server to known hosts
+#   template:
+#     src: known_hosts
+#     dest: /home/backup/.ssh/known_hosts
+#     owner: backup
+#     group: backup
+#     mode: 0600
+
+# set up backup
+
+# - name: Create restore directory 
+#   file:
+#     path: /home/backup/restore
+#     state: directory
+#     owner: backup
+#     group: backup
+#     mode: 0777
+
+# - name: Install duplicity
+#   apt:
+#     name: duplicity
+
+# Docker
+
+# - name: Install docker
+#   apt:
+#     name: 
+#       - docker.io
+#       - python3-docker
+
+# - name: Start docker
+#   service:
+#     name: docker
+#     state: started
+#     enabled: true
+
+# install dnspython for adding dns records
+
+# - name: Install dnspython
+#   apt:
+#     name: python3-dnspython

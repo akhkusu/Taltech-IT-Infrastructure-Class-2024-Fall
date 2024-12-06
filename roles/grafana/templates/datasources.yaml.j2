@@ -5,7 +5,7 @@ datasources:
     type: prometheus
     access: proxy
     orgId: 1
-    url: http://vm2:{{prometheus_port}}/prometheus
+    url: http://akhkusu-2:{{prometheus_port}}/prometheus
     isDefault: true
     version: 1
     editable: true
@@ -14,7 +14,7 @@ datasources:
     type: influxdb
     access: proxy
     orgId: 1
-    url: http://vm2:{{influxdb_port}}
+    url: http://akhkusu-2:{{influxdb_port}}
     database: latency
     version: 1
     editable: true
@@ -23,7 +23,7 @@ datasources:
     type: influxdb
     access: proxy
     orgId: 1
-    url: http://vm2:{{influxdb_port}}
+    url: http://akhkusu-2:{{influxdb_port}}
     database: telegraf
     version: 1
     editable: true

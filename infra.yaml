@@ -51,5 +51,21 @@
       - grafana
     tags: grafana
 
-     # important order -  agama, uwsgi, nginx   
+
+  
+  - name: Influxdb
+    hosts: influxdb
+    become: yes
+    roles:  
+      - influxdb
+    tags:
+      - in
+
+  
+  - name: Agama client
+    hosts: agama_client_servers
+    roles:
+      - role: agama_client
+    tags: agc
+      
 

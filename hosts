@@ -1,29 +1,33 @@
-vm1 ansible_host=193.40.156.67 ansible_port=38422 ansible_user=ubuntu
-vm2 ansible_host=193.40.156.67 ansible_port=45422 ansible_user=ubuntu
+akhkusu-1 ansible_host=193.40.156.67 ansible_port=36822 ansible_user=ubuntu
+akhkusu-2 ansible_host=193.40.156.67 ansible_port=34522 ansible_user=ubuntu
 
 
 
 
 [db_servers]
-vm2
+akhkusu-2
 
 
 [web_servers]
-vm1
+akhkusu-1
 
 
 
 [dns_servers]
-vm2
+akhkusu-2
 
 
 [prometheus]
-vm2
+akhkusu-2
 
 
+[influxdb] #influxdb and agama_client should be on same vm
+akhkusu-1
 
-[influxdb]
-vm2
+
+[agama_client_servers]  #influxdb and agama_client should be on same vm
+akhkusu-1
+
 
 [grafana]
-vm2
+akhkusu-2

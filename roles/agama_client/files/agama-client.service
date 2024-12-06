@@ -1,0 +1,11 @@
+[Unit]
+Description=Agma-client
+Documentation=Go to https://github.com/romankuchin/ica0002-2024/
+After=network-online.target
+
+[Service]
+User=agama-client
+ExecStart=/usr/local/bin/agama-client
+
+[Install]
+WantedBy=multi-user.target

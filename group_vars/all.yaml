@@ -4,7 +4,7 @@ public_url: http://{{ ansible_host }}:{{ ansible_port//100}}80
 
 
 # MySQL
-mysql_host: vm2
+mysql_host: akhkusu-2
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -66,3 +66,7 @@ grafana_password: !vault |
 
 # InfluxDB
 influxdb_port: 8086
+
+
+#Rsyslog 
+rsyslog_port: 6514

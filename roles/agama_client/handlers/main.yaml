@@ -1,0 +1,4 @@
+---
+- name: Restart systemctl daemon
+  systemd:
+   daemon_reload: true
