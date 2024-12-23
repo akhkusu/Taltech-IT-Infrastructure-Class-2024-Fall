@@ -73,7 +73,31 @@
     state: started
     enabled: yes
 
+# Replica Lab
 
+# - name: Export replica status
+#   copy:
+#     src: prometheus-mysqld-exporter
+#     dest: /etc/default/prometheus-mysqld-exporter
+#   notify: Restart mysql-exporter    
+
+- name: Add mysql replication user
+  community.mysql.mysql_user:
+    name: "{{ mysql_replication_username }}"
+    password: "{{ mysql_replication_password }}"
+    host: "%"
+    priv: "*.*:REPLICATION SLAVE"
+    login_unix_socket: /var/run/mysqld/mysqld.sock 
+
+- name: Configure mysql dynamic variables for replica
+  community.mysql.mysql_variables:
+    variable: read_only
+    value: "{{ 'OFF' if inventory_hostname == mysql_host else 'ON' }}"
+    mode: persist
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  notify:
+    - Reset MySQL source
+    - Reset MySQL replica
 
 
 

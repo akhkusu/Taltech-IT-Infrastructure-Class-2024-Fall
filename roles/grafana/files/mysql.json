@@ -248,40 +248,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "mode": "thresholds"
           },
           "mappings": [
             {
@@ -324,16 +291,21 @@
       },
       "id": 4,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
       "pluginVersion": "11.4.0",
       "targets": [
@@ -351,7 +323,7 @@
         }
       ],
       "title": "SQL Status",
-      "type": "timeseries"
+      "type": "stat"
     },
     {
       "datasource": {
@@ -362,40 +334,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "mode": "thresholds"
           },
           "mappings": [
             {
@@ -438,16 +377,21 @@
       },
       "id": 3,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
       "pluginVersion": "11.4.0",
       "targets": [
@@ -469,7 +413,7 @@
         }
       ],
       "title": "I/O Status",
-      "type": "timeseries"
+      "type": "stat"
     }
   ],
   "preload": false,
@@ -487,6 +431,6 @@
   "timezone": "",
   "title": "MySQL Health",
   "uid": "ceb04da1-1169-4b49-a0b9-0d85451d76d0",
-  "version": 1,
+  "version": 3,
   "weekStart": ""
 }

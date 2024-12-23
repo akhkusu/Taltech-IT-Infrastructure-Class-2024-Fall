@@ -4,7 +4,7 @@ public_url: http://{{ ansible_host }}:{{ ansible_port//100}}80
 
 
 # MySQL
-mysql_host: akhkusu-2
+mysql_host: akhkusu-1
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -18,6 +18,19 @@ mysql_password: !vault |
 
 
 mysql_backup_host: "{{ groups['db_servers'] | reject('eq', mysql_host) | first | default(mysql_host) }}"
+
+
+node_id: "{{ (ansible_port / 100) | int }}"
+
+mysql_replication_username: replication
+mysql_replication_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          33383961373234393165636235393532623737646662343531633339373631373563306636623138
+          3637653834613831313236313466333734613338623463660a383464326535353766383961396461
+          39386531393465316462343436323665366265646630666137666134613865643465613331636234
+          3762633665363166640a643439316131333162623462323336336336373061386635643736326439
+          6135
+
 
 
 # DNS

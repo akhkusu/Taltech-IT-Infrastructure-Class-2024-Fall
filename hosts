@@ -6,6 +6,7 @@ akhkusu-2 ansible_host=193.40.156.67 ansible_port=9022 ansible_user=ubuntu
 
 [db_servers]
 akhkusu-2
+akhkusu-1
 
 
 [web_servers]
