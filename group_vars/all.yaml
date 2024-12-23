@@ -40,7 +40,7 @@ dns_forwarders:
   - 8.8.8.8
 localhost: 127.0.0.0/8
 localnetwork: "{{ ansible_default_ipv4.network }}/24"
-
+docker_net: 172.17.0.0/16
 
 
 a_records:

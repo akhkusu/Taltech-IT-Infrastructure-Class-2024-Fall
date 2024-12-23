@@ -18,11 +18,11 @@ akhkusu-1
 akhkusu-2
 
 
-[prometheus]
+[prometheus_servers]
 akhkusu-2
 
 
-[influxdb] #influxdb and agama_client should be on same vm
+[influxdb_servers] #influxdb and agama_client should be on same vm
 akhkusu-1
 
 
@@ -30,5 +30,10 @@ akhkusu-1
 akhkusu-1
 
 
-[grafana]
+[grafana_servers]
 akhkusu-2
+
+[docker_servers]
+akhkusu-1
+akhkusu-2
+#akhkusu-3

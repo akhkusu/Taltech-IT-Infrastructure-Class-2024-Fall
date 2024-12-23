@@ -38,28 +38,36 @@
     tags: prometheus
 
   - name: Prometheus
-    hosts: prometheus
+    hosts: prometheus_servers
     roles:
       - prometheus
     tags: prometheus
       
 
-    
-  - name: Grafana 
-    hosts: grafana
-    roles:
-      - grafana
-    tags: grafana
-
-
+  
   
   - name: Influxdb
-    hosts: influxdb
+    hosts: influxdb_servers
     become: yes
     roles:  
       - influxdb
     tags:
       - in
+  
+  - name: docker
+    hosts: docker_servers
+    roles: 
+      - docker
+    tags: 
+      - docker
+
+
+  - name: Grafana 
+    hosts: grafana_servers
+    roles:
+      - grafana
+    tags: grafana
+
 
   
   - name: Agama client
