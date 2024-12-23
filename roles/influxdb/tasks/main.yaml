@@ -69,3 +69,19 @@
     name: prometheus-influxdb-stats-exporter.service
     state: started
     enabled: true
+
+
+# configure backup process for influxdb
+
+- name: Create backup directory for influxdb
+  file:
+    path: /home/backup/influxdb
+    state: directory
+    owner: backup
+    group: backup
+    mode: 0777
+
+- name: Create scheduled influxdb backup task with cron
+  copy:
+    src: cron-influxdb-backup
+    dest: /etc/cron.d/influxdb-backup

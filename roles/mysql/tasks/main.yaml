@@ -72,3 +72,43 @@
     name: prometheus-mysqld-exporter
     state: started
     enabled: yes
+
+
+
+
+
+# configure backup process for mysql
+
+- name: Create backup directory for mysql
+  file:
+    path: /home/backup/mysql
+    state: directory
+    owner: backup
+    group: backup
+    mode: 0777
+
+- name: Create mysql backup user
+  community.mysql.mysql_user:
+    name: "{{mysql_backup_user}}"
+    password: "{{mysql_backup_password}}"
+    host: "%"
+    resource_limits:
+      MAX_USER_CONNECTIONS: 3
+    priv: "agama.*:SELECT,LOCK TABLES" #backup can only read. Root can write and read
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  no_log: true
+
+- name: Create backup user credentials to access mysql
+  template:
+    src: backup_my.cnf.j2
+    dest: /home/backup/.my.cnf
+    owner: backup
+    group: backup
+    mode: 0600  # Readable only by owner
+  no_log: true
+
+- name: Create scheduled mysql backup task with cron
+  template:
+    src: cron-mysql-backup.j2
+    dest: /etc/cron.d/mysql-backup
+    

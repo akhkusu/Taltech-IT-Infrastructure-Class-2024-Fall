@@ -5,3 +5,10 @@ prometheus-nginx
 
 backup A record in zone.j2 should be replaced by A record job 
 
+someproblem with nginx, Ithink. Without restart, it cannot accept the request to /prometheus or :8080 
+(default file is not loaded correctly? watch video for fix)
+
+
+Backup check everything
+
+service enabled check
