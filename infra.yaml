@@ -18,6 +18,13 @@
       - dns 
     tags: dns
 
+  - name: docker
+    hosts: docker_servers
+    roles: 
+      - docker
+    tags: 
+      - docker
+
       
   - name: Database server
     hosts: db_servers
@@ -25,11 +32,11 @@
      - mysql
      
   
-  - name: Web_servers
-    hosts: web_servers
+  - name: Agama_servers
+    hosts: agama_servers
     roles:
      - agama
-     - uwsgi
+    tags: agama
         
   - name: Nginx
     hosts: all
@@ -45,7 +52,6 @@
       
 
   
-  
   - name: Influxdb
     hosts: influxdb_servers
     become: yes
@@ -54,13 +60,6 @@
     tags:
       - in
   
-  - name: docker
-    hosts: docker_servers
-    roles: 
-      - docker
-    tags: 
-      - docker
-
 
   - name: Grafana 
     hosts: grafana_servers

@@ -2,30 +2,28 @@ server {
 	listen 80 default_server;
 	server_name _;
 
-{% if inventory_hostname in groups['web_servers'] %}
-  location / {
-    uwsgi_pass localhost:5000;
-    include uwsgi_params;
-  }
-{% endif %}
-
   location /node-metrics {
     proxy_pass http://localhost:{{ prometheus_exporters['node']['port'] }}/metrics;
   }
 
-{% if inventory_hostname in groups['prometheus_servers'] %}
+{% if inventory_hostname in groups['grafana_servers'] %}
   location /prometheus {
     proxy_pass http://localhost:{{ prometheus_port }};
   }
-{% endif %}
 
-
-{% if inventory_hostname in groups['grafana_servers'] %}
   location /grafana {
     proxy_pass http://localhost:{{ grafana_port }};
     proxy_set_header Host $http_host;
   }
-{% endif %}
+{% else %}
+	
+	location / {
+    proxy_pass http://localhost:{{ agama_port }};
+    proxy_set_header Host $http_host;
+	}
+
+
+	{% endif %}
 
 
 }
@@ -36,5 +34,3 @@ server {
                 stub_status;
         }
 }
-
-#tes
