@@ -1,5 +1,5 @@
-akhkusu-1 ansible_host=193.40.156.67 ansible_port=6022 ansible_user=ubuntu
-akhkusu-2 ansible_host=193.40.156.67 ansible_port=9022 ansible_user=ubuntu
+akhkusu-1 ansible_host=193.40.156.67 ansible_port=34122 ansible_user=ubuntu
+akhkusu-2 ansible_host=193.40.156.67 ansible_port=37822 ansible_user=ubuntu
 
 
 
@@ -11,7 +11,12 @@ akhkusu-1
 
 [agama_servers]
 akhkusu-1
+akhkusu-2
 
+
+[nginx_servers]
+akhkusu-1
+akhkusu-2
 
 
 [dns_servers]
@@ -37,3 +42,12 @@ akhkusu-2
 akhkusu-1
 akhkusu-2
 #akhkusu-3
+
+[keepalived_servers]
+akhkusu-1
+akhkusu-2
+
+
+[haproxy_servers]
+akhkusu-1
+akhkusu-2

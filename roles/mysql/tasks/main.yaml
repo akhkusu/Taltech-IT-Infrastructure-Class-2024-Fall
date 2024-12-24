@@ -74,12 +74,7 @@
     enabled: yes
 
 # Replica Lab
-
-# - name: Export replica status
-#   copy:
-#     src: prometheus-mysqld-exporter
-#     dest: /etc/default/prometheus-mysqld-exporter
-#   notify: Restart mysql-exporter    
+   
 
 - name: Add mysql replication user
   community.mysql.mysql_user:

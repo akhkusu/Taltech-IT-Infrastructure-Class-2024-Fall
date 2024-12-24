@@ -3,7 +3,7 @@ server {
 	server_name _;
 
   location /node-metrics {
-    proxy_pass http://localhost:{{ prometheus_exporters['node']['port'] }}/metrics;
+    proxy_pass http://localhost:{{ linux_exporter_port }}/metrics;
   }
 
 {% if inventory_hostname in groups['grafana_servers'] %}

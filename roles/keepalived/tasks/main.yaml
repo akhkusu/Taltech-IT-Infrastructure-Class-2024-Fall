@@ -1,0 +1,68 @@
+- set_fact: 
+    default_ip: "{{ hostvars['akhkusu-1']['ansible_default_ipv4']['address'] }}"
+    ip_prefix: "{{ hostvars['akhkusu-1']['ansible_default_ipv4']['prefix'] }}"
+- set_fact: 
+    first_second_ip_octet: "{{ default_ip.split('.')[:2] }}" 
+    third_ip_octet: "{{ default_ip.split('.')[2] }}"
+    fourth_ip_octet: "{{ default_ip.split('.')[3] }}"
+
+
+- name: Make keepalived directory
+  ansible.builtin.file:
+    path: /etc/keepalived/
+    state: directory
+
+- name: Install keepalived
+  ansible.builtin.apt:
+    name: keepalived
+    state: present
+
+- name: Create user keepalived script
+  ansible.builtin.user:
+    name: keepalived_script
+    state: present
+
+- name: Move keepalived script
+  ansible.builtin.template:
+    src: keep_script.sh
+    dest: /home/keepalived_script/keepalive.sh 
+    mode: '0744'
+    owner: keepalived_script
+
+- name: Move keepalived conf
+  ansible.builtin.template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+    mode: '0644'
+  no_log: true
+  notify: Restart keepalived
+
+- name: Make sure keepalaived is running away!
+  ansible.builtin.service:
+    name: keepalived
+    state: started
+    enabled: true
+
+- name: Download Keepalive exporter package
+  ansible.builtin.get_url:
+    url: http://backup/keepalived-exporter-1.2.0.linux-amd64.tar.gz
+    dest: /home/keepalived_script/
+
+- name: Install Keepalived exporter package
+  ansible.builtin.unarchive:
+    src: /home/keepalived_script/keepalived-exporter-1.2.0.linux-amd64.tar.gz
+    dest: /usr/local/bin/
+    remote_src: true
+
+- name: Move Keep alive service
+  ansible.builtin.template:
+    src: keepalived-exporter.service
+    dest: /etc/systemd/system/
+    mode: '0644'
+  notify: Restart systemd daemon
+
+- name: Start keep alive service
+  ansible.builtin.service:
+    name: keepalived-exporter
+    state: started
+    enabled: true

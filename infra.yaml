@@ -37,12 +37,7 @@
     roles:
      - agama
     tags: agama
-        
-  - name: Nginx
-    hosts: all
-    roles:
-      - nginx
-    tags: prometheus
+
 
   - name: Prometheus
     hosts: prometheus_servers
@@ -58,7 +53,7 @@
     roles:  
       - influxdb
     tags:
-      - in
+      - influxdb
   
 
   - name: Grafana 
@@ -67,12 +62,31 @@
       - grafana
     tags: grafana
 
+  - name: Nginx server
+    hosts: nginx_servers
+    roles:
+      - role: nginx
+    tags: nginx
 
   
   - name: Agama client
     hosts: agama_client_servers
     roles:
       - role: agama_client
-    tags: agc
+    tags: agama_client
       
+
+
+  - name: HAProxy
+    hosts: haproxy_servers
+    roles: 
+      - role: haproxy
+    tags: haproxy
+
+
+  - name: Keepalived
+    hosts: keepalived_servers
+    roles:
+      - role: keepalived
+    tags: keepalived
 

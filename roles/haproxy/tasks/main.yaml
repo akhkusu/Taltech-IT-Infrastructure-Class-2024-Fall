@@ -1,0 +1,46 @@
+- name: Install HAProxy
+  apt:
+    name: haproxy
+
+- name: Add haproxy configuration
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: Restart haproxy
+
+- name: Start HAProxy
+  service:
+    name: haproxy
+    state: started
+    enabled: true
+
+
+# prometheus haproxy exporter
+
+- name: Install prometheus-haproxy-exporter
+  apt:
+    name: prometheus-haproxy-exporter
+
+- name: Start prometheus-haproxy-exporter
+  service:
+    name: prometheus-haproxy-exporter
+    state: started
+    enabled: true 
+
+- name: Configure prometheus-haproxy-exporter
+  template:
+    dest: /etc/default/prometheus-haproxy-exporter
+    src: prometheus-haproxy-exporter
+  notify: Restart prometheus-haproxy-exporter
+
+# - name: Add haproxy A records
+#   include_role:
+#     name: dns_record
+#     tasks_from: add_dns_records
+#   vars:
+#     record: "lb-{{server_index + 1}}"
+#     value: "{{ item }}"
+#     type: "CNAME"
+#   loop: "{{ groups['haproxy_servers'] }}"
+#   loop_control:
+#     index_var: server_index

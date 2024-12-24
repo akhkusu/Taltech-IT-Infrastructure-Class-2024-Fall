@@ -13,40 +13,23 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:{{ prometheus_port }}']
 
-  - job_name: linux
+  {% for job in jobs_list %}
+
+  - job_name: {{job['name']}}
     static_configs:
       - targets:
-{% for vm in groups['all'] %}
-        - {{ vm }}:{{ prometheus_exporters['node']['port'] }}
-{% endfor %}
+        {%for target in groups[job['target_group']]%}
 
+        - {{target}}:{{job['target_port']}}
+        {%endfor%}
+  {%endfor%}
 
-  - job_name: bind9
-    static_configs:
-      - targets:
-{% for vm in groups['dns_servers'] %}
-          - {{ vm }}:{{ prometheus_exporters['bind']['port'] }}
-{% endfor %}
-
-  - job_name: mysql
-    static_configs:
-      - targets:
-{% for vm in groups['db_servers'] %}
-        - {{ vm }}:{{ prometheus_exporters['mysql']['port'] }}
-{% endfor %}
-
-  - job_name: nginx
-    static_configs:
-      - targets:
-{% for vm in groups['all'] %}
-        - {{ vm }}:{{ prometheus_exporters['nginx']['port'] }}
-{% endfor %}
 
 
   - job_name: backup
     static_configs:
       - targets:
-        - backup.{{ domain_name }}:{{ prometheus_exporters['backup']['port'] }}
+        - backup.{{ domain_name }}:{{ backup_exporter_port }}
 
   
   
