@@ -131,3 +131,10 @@
     src: cron-mysql-backup.j2
     dest: /etc/cron.d/mysql-backup
     
+
+# Add cname records for mysql servers
+- name: add cnames
+  include_role:
+    name: "cname"
+  vars:
+    service: "mysql{{inventory_hostname | replace('akhkusu','')}}"

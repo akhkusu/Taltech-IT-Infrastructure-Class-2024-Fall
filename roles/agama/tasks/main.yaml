@@ -23,8 +23,15 @@
     name: agama{{item}}
     image: agama
     published_ports: "{{ agama_port + item }}:8000"
-    restart_policy: "unless-stopped"
+    restart_policy: always
     env:
        AGAMA_DATABASE_URI: mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}
   no_log: true
   loop: "{{ range(agama_per_vm) }}"
+
+#Add cname for Agama
+- name: add cnames
+  include_role:
+    name: "cname"
+  vars:
+    service: "www{{inventory_hostname | replace('akhkusu','')}}"

@@ -27,3 +27,9 @@
 
 
 
+
+- name: add cnames
+  include_role:
+    name: "cname"
+  vars:
+    service: "prometheus"

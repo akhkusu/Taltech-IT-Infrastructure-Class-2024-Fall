@@ -1,6 +1,6 @@
-akhkusu-1 ansible_host=193.40.156.67 ansible_port=34122 ansible_user=ubuntu
-akhkusu-2 ansible_host=193.40.156.67 ansible_port=37822 ansible_user=ubuntu
-
+akhkusu-1 ansible_host=193.40.156.67 ansible_port=31822 ansible_user=ubuntu
+akhkusu-2 ansible_host=193.40.156.67 ansible_port=44022 ansible_user=ubuntu
+akhkusu-3 ansible_host=193.40.156.67 ansible_port=34122 ansible_user=ubuntu 
 
 
 
@@ -12,36 +12,45 @@ akhkusu-1
 [agama_servers]
 akhkusu-1
 akhkusu-2
-
+akhkusu-3
 
 [nginx_servers]
 akhkusu-1
 akhkusu-2
+akhkusu-3
 
+[dns_servers:children]
+dns_primary
+dns_secondary
 
-[dns_servers]
+[dns_primary]
+akhkusu-3
+
+[dns_secondary]
+akhkusu-1
 akhkusu-2
+
 
 
 [prometheus_servers]
-akhkusu-2
+akhkusu-3
 
 
 [influxdb_servers] #influxdb and agama_client should be on same vm
-akhkusu-1
+akhkusu-3
 
 
 [agama_client_servers]  #influxdb and agama_client should be on same vm
-akhkusu-1
+akhkusu-3
 
 
 [grafana_servers]
-akhkusu-2
+akhkusu-3
 
 [docker_servers]
 akhkusu-1
 akhkusu-2
-#akhkusu-3
+akhkusu-3
 
 [keepalived_servers]
 akhkusu-1

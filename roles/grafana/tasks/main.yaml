@@ -1,12 +1,5 @@
 ---
 
-- name: Install Grafana via Docker
-  community.docker.docker_container:
-    name: grafana
-    image: grafana/grafana
-    volumes: /opt/grafana:/etc/grafana
-    published_ports: "{{ grafana_port }}:3000"
-
 - name: Create volume directories
   ansible.builtin.file:
     path: /opt/grafana/provisioning/{{ item }}
@@ -45,11 +38,32 @@
     - backups.json
   notify: Restart grafana
 
-# - name: Add grafana A record
-#   include_role:
-#     name: dns_record
-#     tasks_from: add_dns_records
-#   vars:
-#     record: "grafana"
-#     value: "{{ groups['grafana_servers'][0] }}"
-#     type: "CNAME"
+
+
+- name: Install Grafana via Docker
+  community.docker.docker_container:
+    name: grafana
+    image: grafana/grafana
+    volumes: /opt/grafana:/etc/grafana
+    restart_policy: always
+    published_ports: "{{ grafana_port }}:3000"
+  
+
+
+- name: run grafana handlers
+  meta: flush_handlers
+
+- name: Make sure grafana is running
+  community.docker.docker_container:
+    image: grafana/grafana
+    name: grafana
+    state: started
+
+
+# add cnames
+- name: add cnames
+  include_role:
+    name: "cname"
+  vars:
+    service: "grafana"
+    

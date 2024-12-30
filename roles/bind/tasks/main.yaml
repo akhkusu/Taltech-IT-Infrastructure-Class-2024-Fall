@@ -20,9 +20,22 @@
   ansible.builtin.template:
     dest: /var/cache/bind/db.ak.io
     src: zone.j2 
+    force: no
   notify: 
     - Restart bind9
     - RNDC Reload
+  when: inventory_hostname in groups ['dns_primary']
+
+- name: copy reverse zone
+  ansible.builtin.template:
+    dest: /var/cache/bind/rev.db.ak.io
+    src: reverse.zone.conf.j2
+    force: yes
+  notify: 
+    - Restart bind9
+    - RNDC Reload
+  when: inventory_hostname in groups ['dns_primary']
+  
 
 
 #Exporter 
@@ -64,10 +77,36 @@
     - bind_exporter
     
 
+- name: Run handlers
+  meta: flush_handlers
+
+
+
+- name: install dependency for nsupdate
+  ansible.builtin.apt:
+    name: python3-dnspython
+    state: present
 
 
 
 
+- name: Add A backup record on backup dns servers
+  community.general.nsupdate:
+    key_algorithm: hmac-sha256
+    key_name: nsupdate.key
+    key_secret: "{{ dns_nsupdate_secret }}"
+    record: backup
+    server: "{{hostvars[groups['dns_primary'][0]]['ansible_default_ipv4']['address']}}"
+    state: present
+    type: A
+    zone: "{{ domain_name }}"
+    value: "{{ backup_server_ip }}"
+  when: inventory_hostname in groups['dns_primary']
 
 
+- name: add cnames
+  include_role:
+    name: "cname"
+  vars:
+    service: "ns{{inventory_hostname | replace('akhkusu','')}}"
     

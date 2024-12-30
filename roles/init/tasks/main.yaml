@@ -97,22 +97,5 @@
   apt:
     name: duplicity
 
-# Docker
 
-# - name: Install docker
-#   apt:
-#     name: 
-#       - docker.io
-#       - python3-docker
 
-# - name: Start docker
-#   service:
-#     name: docker
-#     state: started
-#     enabled: true
-
-# install dnspython for adding dns records
-
-# - name: Install dnspython
-#   apt:
-#     name: python3-dnspython

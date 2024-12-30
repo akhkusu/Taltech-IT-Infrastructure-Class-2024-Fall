@@ -4,11 +4,12 @@
 - name: Download influxdb
   get_url:
    url: "https://dl.influxdata.com/influxdb/releases/influxdb_1.8.10_amd64.deb"
-   dest: "/tmp/influxdb_1.8.10_amd64.deb"
+   dest: "/home/ubuntu/influxdb"
 
 - name: Install influxdb
   apt:
-   deb: "/tmp/influxdb_1.8.10_amd64.deb"
+   deb: "/home/ubuntu/influxdb"
+   state: present
 
 - name: Configure influxdb
   copy:
@@ -85,3 +86,11 @@
   copy:
     src: cron-influxdb-backup
     dest: /etc/cron.d/influxdb-backup
+
+
+# add cnames for influxdb
+- name: add cnames
+  include_role:
+    name: "cname"
+  vars:
+    service: "influxdb"

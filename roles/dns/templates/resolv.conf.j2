@@ -1,2 +1,4 @@
-nameserver {{ hostvars['akhkusu-2']['ansible_default_ipv4']['address'] }}
+{% for host in groups['dns_secondary'] %}
+nameserver {{ hostvars[host]['ansible_default_ipv4']['address'] }}
+{% endfor %}
 search {{ domain_name }}

@@ -28,5 +28,8 @@ Main:
     CPU utilisation on VMs
     Memory consumption on VMs
     Bind9 status + amount of A DNS queries per minute (bind_resolver_queries_total)
+    (Make sure that secondary DNS metrics are gathered by Prometheus.
+
+Add secondary DNS graphs to your Grafana dashboard (same as for primary DNS).)
     MySQL status + amount of selects per minute (mysql_global_status_commands_total)
     Nginx status + amount of requests per minute (nginx_http_requests_total)

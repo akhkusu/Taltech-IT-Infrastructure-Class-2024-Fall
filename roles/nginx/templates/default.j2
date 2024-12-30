@@ -1,36 +1,31 @@
 server {
-	listen 80 default_server;
-	server_name _;
+    listen 80 default_server;
+    server_name _;
 
-  location /node-metrics {
-    proxy_pass http://localhost:{{ linux_exporter_port }}/metrics;
-  }
+    {% if inventory_hostname in groups['grafana_servers'] %}
 
-{% if inventory_hostname in groups['grafana_servers'] %}
-  location /prometheus {
-    proxy_pass http://localhost:{{ prometheus_port }};
-  }
+    location /prometheus {
+        proxy_pass http://prometheus:{{ prometheus_port }};
+    }
 
-  location /grafana {
-    proxy_pass http://localhost:{{ grafana_port }};
-    proxy_set_header Host $http_host;
-  }
-{% else %}
-	
-	location / {
-    proxy_pass http://localhost:{{ agama_port }};
-    proxy_set_header Host $http_host;
-	}
+    location /grafana {
+        proxy_pass http://grafana:{{ grafana_port }};
+        proxy_set_header Host $http_host;
+    }
 
+    {% else %}
 
-	{% endif %}
+    location / {
+        proxy_pass http://www-{{ (inventory_hostname | split('-'))[1] }}:{{ agama_port }};
+        proxy_set_header Host $http_host;
+    }
 
-
+    {% endif %}
 }
 
 server {
-        listen {{ stub_status_port }} default_server;
-        location = /stub_status {
-                stub_status;
-        }
+    listen {{ stub_status_port }} default_server;
+    location = /stub_status {
+        stub_status;
+    }
 }
