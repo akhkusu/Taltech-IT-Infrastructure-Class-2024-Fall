@@ -79,42 +79,21 @@ prioritized_keepalived: akhkusu-1
 prometheus_port: 9090
 stub_status_port: 8080
 
-# Exporters
 
+
+# Exporter Ports
 linux_exporter_port: 9100
 haproxy_exporter_port: 9101
-
-jobs_list:
-  - name: linux
-    target_port: "{{ linux_exporter_port }}"
-    target_group: all
-
-  - name: bind9
-    target_port: 9119
-    target_group: dns_servers
-
-  - name: mysql
-    target_port: 9104
-    target_group: db_servers
-
-  - name: nginx
-    target_port: 9113
-    target_group: nginx_servers
-
-  - name: influxdb
-    target_port: 9424
-    target_group: influxdb_servers
-
-  - name: haproxy
-    target_port: "{{ haproxy_exporter_port }}"
-    target_group: haproxy_servers
-
-  - name: keepalived
-    target_port: 9165
-    target_group: keepalived_servers
-
+bind9_exporter_port: 9119
+mysql_exporter_port: 9104
+nginx_exporter_port: 9113
+influxdb_exporter_port: 9424
+keepalived_exporter_port: 9165
 backup_exporter_port: 9111 #can't be changed as it's set up on backup host
 
+
+
+haproxy_scrape_uri:  --haproxy.scrape-uri=http://lb-1:9188/stats;csv
 
 
   
@@ -128,9 +107,10 @@ mysql_exporter_pass: !vault |
           3736
 
 
+
 # Grafana
 grafana_port: 3000
-grafana_user: admin
+grafana_user: monitor_admin
 grafana_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           31646330306538316236333739353735663635333839636130366330333135313639333336383233
@@ -169,3 +149,12 @@ mysql_backup_password: !vault |
 
 # docker
 agama_per_vm: 3
+
+
+
+#Agama client
+agac_db_url: http://influxdb.ak.io:{{ influxdb_port }}
+agac_db_name: agama_client
+
+#telegram
+telegraf_db_url: http://influxdb.ak.io:{{ influxdb_port }}

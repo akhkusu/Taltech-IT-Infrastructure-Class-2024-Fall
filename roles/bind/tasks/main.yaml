@@ -36,6 +36,9 @@
     - RNDC Reload
   when: inventory_hostname in groups ['dns_primary']
   
+ 
+- meta: flush_handlers
+
 
 
 #Exporter 

@@ -34,8 +34,9 @@ listen my_ha_frontend
         server vm-2-{{agama_index}} lb-2:{{agama_port + agama_index}} check
         {% endfor %}
 
-listen stats
-        bind :9188
-        stats enable
-        stats uri /status
-        stats refresh 5s 
+frontend stats
+	bind *:9188
+	mode http
+	stats enable
+	stats uri /stats
+	stats refresh 5s

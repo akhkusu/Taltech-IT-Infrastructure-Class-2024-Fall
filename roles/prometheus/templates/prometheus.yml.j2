@@ -1,35 +1,64 @@
 global:
-  scrape_interval:     15s 
-  evaluation_interval: 15s 
+  scrape_interval: 15s
+  evaluation_interval: 15s
 
 scrape_configs:
+  # Prometheus self-monitoring
   - job_name: 'prometheus'
-
     scrape_interval: 5s
     scrape_timeout: 5s
-
     metrics_path: /prometheus/metrics
-    
-    static_configs:
-      - targets: ['localhost:{{ prometheus_port }}']
-
-  {% for job in jobs_list %}
-
-  - job_name: {{job['name']}}
     static_configs:
       - targets:
-        {%for target in groups[job['target_group']]%}
+          - prometheus:9090
 
-        - {{target}}:{{job['target_port']}}
-        {%endfor%}
-  {%endfor%}
-
-
-
-  - job_name: backup
+  # Linux Exporter
+  - job_name: linux
     static_configs:
       - targets:
-        - backup.{{ domain_name }}:{{ backup_exporter_port }}
+{% for host in groups['all'] %}
+          - {{ host }}:{{ linux_exporter_port }}
+{% endfor %}
 
-  
-  
+  # Bind9 Exporter
+  - job_name: bind9
+    static_configs:
+      - targets:
+{% for host in groups['dns_servers'] %}
+          - {{ host }}:{{ bind9_exporter_port }}
+{% endfor %}
+
+  # MySQL Exporter
+  - job_name: mysql
+    static_configs:
+      - targets:
+          - mysql-1:{{ mysql_exporter_port }}
+          - mysql-2:{{ mysql_exporter_port }}
+
+  # NGINX Exporter
+  - job_name: nginx
+    static_configs:
+      - targets:
+{% for host in groups['nginx_servers'] %}
+          - {{ host }}:{{ nginx_exporter_port }}
+{% endfor %}
+
+  # InfluxDB Exporter
+  - job_name: influxdb
+    static_configs:
+      - targets:
+          - influxdb:{{ influxdb_exporter_port }}
+
+  # HAProxy Exporter
+  - job_name: haproxy
+    static_configs:
+      - targets:
+          - lb-1:{{ haproxy_exporter_port }}
+          - lb-2:{{ haproxy_exporter_port }}
+
+  # Keepalived Exporter
+  - job_name: keepalived
+    static_configs:
+      - targets:
+          - lb-1:{{ keepalived_exporter_port }}
+          - lb-2:{{ keepalived_exporter_port }}

@@ -30,36 +30,3 @@
     name: prometheus-nginx-exporter
     state: started
     enabled: true
-
-# - name: Install nginx
-#   ansible.builtin.apt:
-#     name: nginx
-
-
-# - name: copy nginx config
-#   ansible.builtin.template:
-#     src: default.j2
-#     dest: /etc/nginx/sites-enabled/default
-#   notify: 
-#     - Restart Nginx
-
-
-#  # if prometheus-nginx-exporter is not working, check ss -tuln and see if 8080 is open
-# - name: Install prometheus-nginx-exporter
-#   ansible.builtin.apt:
-#     name: prometheus-nginx-exporter
-#   notify: 
-#    # - Restart Nginx #maybe this works idk
-#     - Restart nginx exporter
-#   #watch Roman lec or find others tasks
-
-
-
-# - name: nginx and exporter service  start
-#   ansible.builtin.service:
-#     name: "{{ item }}"
-#     state: started
-#     enabled: true
-#   loop:
-#     - nginx
-#     - prometheus-nginx-exporter

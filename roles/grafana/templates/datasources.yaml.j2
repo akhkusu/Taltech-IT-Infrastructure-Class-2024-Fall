@@ -5,25 +5,21 @@ datasources:
     type: prometheus
     access: proxy
     orgId: 1
-    url: http://akhkusu-2:{{prometheus_port}}/prometheus
+    url: http://prometheus:{{prometheus_port}}/prometheus
     isDefault: true
     version: 1
     editable: true
 
-  - name: InfluxDB
+  - name: InfluxDB for agama_client
     type: influxdb
     access: proxy
-    orgId: 1
-    url: http://akhkusu-2:{{influxdb_port}}
-    database: latency
-    version: 1
-    editable: true
+    url: {{ agac_db_url }}
+    database: {{ agac_db_name }}
 
-  - name: InfluxDB-telegraf
+  - name: InfluxDB for telegraf
     type: influxdb
     access: proxy
-    orgId: 1
-    url: http://akhkusu-2:{{influxdb_port}}
-    database: telegraf
-    version: 1
-    editable: true
+    url: {{ telegraf_db_url }}
+    database: telegraf  
+    jsonData:
+        httpMode: POST

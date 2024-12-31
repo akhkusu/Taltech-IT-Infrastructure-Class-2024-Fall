@@ -33,3 +33,18 @@ Main:
 Add secondary DNS graphs to your Grafana dashboard (same as for primary DNS).)
     MySQL status + amount of selects per minute (mysql_global_status_commands_total)
     Nginx status + amount of requests per minute (nginx_http_requests_total)
+
+
+Guys, how did u do the agama count in grafana specifically for your machines ?
+NEW
+December 24, 2024
+
+ShadeLily — 12/24/2024 1:50 AM
+I did SELECT "items" FROM "agama-stats" WHERE ("name"::tag = 'elli-gor-1') AND $timeFilter,
+
+
+
+
+SELECT sum("items") FROM "autogen"."agama-stats" WHERE $timeFilter GROUP BY time(1m) fill(null)
+
+for item counts for all discorvered agamas
