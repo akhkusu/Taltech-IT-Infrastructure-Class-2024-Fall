@@ -12,7 +12,7 @@ scrape_configs:
       - targets:
           - prometheus:9090
 
-  # Linux Exporter
+ 
   - job_name: linux
     static_configs:
       - targets:
@@ -20,7 +20,7 @@ scrape_configs:
           - {{ host }}:{{ linux_exporter_port }}
 {% endfor %}
 
-  # Bind9 Exporter
+  
   - job_name: bind9
     static_configs:
       - targets:
@@ -28,14 +28,14 @@ scrape_configs:
           - {{ host }}:{{ bind9_exporter_port }}
 {% endfor %}
 
-  # MySQL Exporter
+  
   - job_name: mysql
     static_configs:
       - targets:
           - mysql-1:{{ mysql_exporter_port }}
           - mysql-2:{{ mysql_exporter_port }}
 
-  # NGINX Exporter
+  
   - job_name: nginx
     static_configs:
       - targets:
@@ -43,22 +43,31 @@ scrape_configs:
           - {{ host }}:{{ nginx_exporter_port }}
 {% endfor %}
 
-  # InfluxDB Exporter
+  
   - job_name: influxdb
     static_configs:
       - targets:
           - influxdb:{{ influxdb_exporter_port }}
 
-  # HAProxy Exporter
+  
   - job_name: haproxy
     static_configs:
       - targets:
           - lb-1:{{ haproxy_exporter_port }}
           - lb-2:{{ haproxy_exporter_port }}
 
-  # Keepalived Exporter
+  
   - job_name: keepalived
     static_configs:
       - targets:
           - lb-1:{{ keepalived_exporter_port }}
           - lb-2:{{ keepalived_exporter_port }}
+
+
+  
+  - job_name: backup
+    static_configs:
+      - targets:
+        - backup.{{ domain_name }}:{{ backup_exporter_port }}
+
+  

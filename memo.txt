@@ -6,45 +6,7 @@ backup A record in zone.j2 should be replaced by A record job
 
 Backup check everything
 
-service enabled check
-
-
-
-grafana
-Main:
-    haproxy_up (last value)
-    haproxy_server_up (last value for each container)
-    keepalived_up (last value)
-    keepalived_vrrp_state (last value)
-
-
-    graph with item counts for all discovered Agamas
-    current number of items in your Agama
-
-   influxDB health (influxdb_exporter_stats_query_success)
-   InfluxDB write rate (influxdb_write_write_ok)
-
-
-    CPU utilisation on VMs
-    Memory consumption on VMs
-    Bind9 status + amount of A DNS queries per minute (bind_resolver_queries_total)
-    (Make sure that secondary DNS metrics are gathered by Prometheus.
-
-Add secondary DNS graphs to your Grafana dashboard (same as for primary DNS).)
-    MySQL status + amount of selects per minute (mysql_global_status_commands_total)
-    Nginx status + amount of requests per minute (nginx_http_requests_total)
-
-
-Guys, how did u do the agama count in grafana specifically for your machines ?
-NEW
-December 24, 2024
-
-ShadeLily — 12/24/2024 1:50 AM
-I did SELECT "items" FROM "agama-stats" WHERE ("name"::tag = 'elli-gor-1') AND $timeFilter,
 
 
 
 
-SELECT sum("items") FROM "autogen"."agama-stats" WHERE $timeFilter GROUP BY time(1m) fill(null)
-
-for item counts for all discorvered agamas
