@@ -1,37 +1,53 @@
-# Backup Policy
+# Backup Policy and SLA
 
-## Introduction
+## Purpose
+This SLA outlines the backup and recovery strategy for critical services managed within the Ansible repository. These services include:
+- **Configurable services**: nginx, uwsgi, bind9, agama, prometheus, pinger, grafana.
+- **Recoverable services**: MySQL, InfluxDB.
 
-This document serves as this backup policy for the Ansible repository, which includes various services such as nginx, uwsgi, bind9, agama, prometheus, agama-client, grafana, mysql, and influxdb.
+## Scope
+- **Configurable services**: Configurations can be restored using the Ansible repository.
+- **Recoverable services**: Full data backups are created and stored in multiple locations to ensure data integrity.
 
-### Backup Coverage
+---
 
-The backup policy covers all services mentioned above, the amount of data backed up depends on the service type. There are two different services, configurable and recoverable. Configurable services include nginx, uwsgi, bind9, agama, prometheus, pinger, and grafana, and their configuration information can be restored by running this ansible repository. The recoverable services include mysql and influxdb services, their data will be fully stored in multiple locations to ensure the integrity of these services is always preserved.
+## Backup Objectives
 
 ### Recovery Point Objective (RPO)
-
-The RPO for this backup policy is defined as the maximum acceptable amount of data loss in the event of a disaster. In the context of this project, the RPO is set to data that generated within the past 24 hours.
-
-### Versioning and Retention
-
-Backups will be versioned to allow for easy identification and restoration of specific points in time. Each backup will be labeled with its creation timestamp and backup type. 
-
-* MySQL full backup schedule: `Every Sunday at 20.15 UTC`
-* InfluxDB full backup schedule: `Every Sunday at 21.15 UTC`
-* MySQL incremental backup schedule: `Everyday excluding Sunday at 20.20 UTC`
-* InfluxDB incremental backup schedule: `Everyday excluding  Sunday at 21.20 UTC`
-
-Backups will be preserved for 6 months to ensure a comprehensive data restoration can be performed in case of a disaster.
-
-### Usability Checks
-
-Usability checks will be performed `every 14 days` to ensure the integrity and restorability of the backups. These checks will involve verifying the backup files, testing the restoration process, and validating the recovered data. Any issues or discrepancies discovered during these checks will be promptly addressed to maintain the reliability of the backup system.
-
-
-### Restoration Criteria
-
-In the event of a disaster, the restoration process will prioritize the recreation of configurable services including nginx, uwsgi, bind9, agama, prometheus, pinger, grafana. These services will be recreated by running this Ansible repository. For recoverable services, please check the `backup_restore.md` file for the detailed procedure. 
+- The RPO is **24 hours**, ensuring data generated within the past day is preserved in case of a disaster.
 
 ### Recovery Time Objective (RTO)
+- The RTO is **2 hours**, targeting the complete restoration of services and data within this period.
 
-The overall goal is to minimize downtime and restore services as quickly as possible. The maximum RTO is set to 2 hours for this project which involves recovering and testing data.
+---
+
+## Backup Schedule and Retention
+
+- **MySQL Full Backup**: Sundays at 20:15 UTC  
+- **InfluxDB Full Backup**: Sundays at 21:15 UTC  
+- **MySQL Incremental Backup**: Daily (excluding Sunday) at 20:20 UTC  
+- **InfluxDB Incremental Backup**: Daily (excluding Sunday) at 21:20 UTC  
+
+Backups are retained for **6 months** to ensure long-term data recovery capabilities. Each backup is timestamped and labeled for easy identification.
+
+---
+
+## Usability Checks
+Backup integrity checks are conducted every **14 days**. These tests include:  
+- Verifying backup files.  
+- Restoring data to test environments.  
+- Validating the integrity of recovered data.  
+
+Issues identified during these checks are resolved immediately to maintain reliability.
+
+---
+
+## Restoration Process
+
+1. **Configurable Services**:  
+   Restored by re-running the Ansible repository.  
+
+2. **Recoverable Services (MySQL, InfluxDB)**:  
+   Follow detailed steps in the `backup_restore.md` document for data recovery.
+
+---
