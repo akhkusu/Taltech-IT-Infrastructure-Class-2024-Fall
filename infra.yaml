@@ -1,18 +1,13 @@
 ---
-
-  - name: Always gather facts for all hosts
-    hosts: all
-    gather_facts: true
-    tags:
-      - always
-    tasks: []
-
+    
   - name: Initial setup
     hosts: all
+    gather_facts: true
     roles:
       - init
     tags:
       - init
+      - always
 
   - name: Bind9
     hosts: dns_servers
