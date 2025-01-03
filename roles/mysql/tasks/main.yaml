@@ -17,10 +17,17 @@
     name: python3-pymysql
     state: present
 
+- name: Restart sql server
+  meta: flush_handlers
+
+
 - name: Create MySQL database
   community.mysql.mysql_db:
     name: "{{ mysql_database }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
+  notify:
+    - Reset MySQL source
+    - Reset MySQL replica
 
 - name: MySQL user
   community.mysql.mysql_user:

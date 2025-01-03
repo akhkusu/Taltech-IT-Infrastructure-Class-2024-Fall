@@ -54,7 +54,12 @@
     name: prometheus-node-exporter
     state: present
 
-
+#start and enable
+- name: Start and enable Prometheus node exporter
+  ansible.builtin.service:
+    name: prometheus-node-exporter
+    state: started
+    enabled: yes
 
 - name: Modify rsyslog conf file
   ansible.builtin.template:
