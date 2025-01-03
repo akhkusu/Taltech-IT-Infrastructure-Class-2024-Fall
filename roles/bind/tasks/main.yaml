@@ -15,6 +15,7 @@
   notify: 
     - Restart bind9
     - RNDC Reload
+  no_log: true
 
 - name: copy zone
   ansible.builtin.template:
@@ -105,7 +106,7 @@
     zone: "{{ domain_name }}"
     value: "{{ backup_server_ip }}"
   when: inventory_hostname in groups['dns_primary']
-
+  no_log: true
 
 - name: add cnames
   include_role:

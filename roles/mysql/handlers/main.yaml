@@ -34,3 +34,4 @@
     - resetreplica
     - startreplica
   when: inventory_hostname != mysql_host
+  no_log: true

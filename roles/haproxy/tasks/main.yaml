@@ -14,6 +14,17 @@
     state: started
     enabled: true
 
+- meta: flush_handlers
+
+
+
+# add cnames for haproxy
+- name: add cnames
+  include_role:
+    name: "cname"
+  vars:
+    service: "lb{{ inventory_hostname | replace('akhkusu','') }}"
+
 
 # prometheus haproxy exporter
 
@@ -34,10 +45,3 @@
   notify: Restart prometheus-haproxy-exporter
 
 
-
-# add cnames for haproxy
-- name: add cnames
-  include_role:
-    name: "cname"
-  vars:
-    service: "lb{{inventory_hostname | replace('akhkusu','')}}"

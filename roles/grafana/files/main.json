@@ -216,7 +216,7 @@
             "type": "influxdb",
             "uid": "PEC11FC616F1E88C2"
           },
-          "query": "SELECT sum(\"items\") FROM \"autogen\".\"agama-stats\" WHERE $timeFilter GROUP BY time(1m) fill(null)\n",
+          "query": "SELECT sum(\"items\") FROM \"autogen\".\"agama-stats\" WHERE $timeFilter GROUP BY time(5m) fill(null)\n",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
