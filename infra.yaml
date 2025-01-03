@@ -1,4 +1,12 @@
 ---
+
+  - name: Always gather facts for all hosts
+    hosts: all
+    gather_facts: true
+    tags:
+      - always
+    tasks: []
+
   - name: Initial setup
     hosts: all
     roles:
@@ -30,14 +38,17 @@
     hosts: db_servers
     roles:
      - mysql
-     
+    tags: 
+      - mysql
+      - switchover
   
   - name: Agama_servers
     hosts: agama_servers
     roles:
      - agama
-    tags: agama
-
+    tags: 
+      - agama
+      - switchover
 
   - name: Prometheus
     hosts: prometheus_servers
