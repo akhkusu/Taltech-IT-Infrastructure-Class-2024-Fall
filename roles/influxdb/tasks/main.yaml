@@ -80,7 +80,7 @@
     state: directory
     owner: backup
     group: backup
-    mode: 0777
+    mode: 0755 # Readable and writable by owner, readable by group and others
 
 - name: Create scheduled influxdb backup task with cron
   copy:

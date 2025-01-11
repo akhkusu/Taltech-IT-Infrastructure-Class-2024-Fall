@@ -8,14 +8,6 @@
     dest: /etc/haproxy/haproxy.cfg
   notify: Restart haproxy
 
-- name: Start HAProxy
-  service:
-    name: haproxy
-    state: started
-    enabled: true
-
-- meta: flush_handlers
-
 
 
 # add cnames for haproxy
@@ -26,17 +18,15 @@
     service: "lb{{ inventory_hostname | replace('akhkusu','') }}"
 
 
+- meta: flush_handlers
+
+
+
 # prometheus haproxy exporter
 
 - name: Install prometheus-haproxy-exporter
   apt:
     name: prometheus-haproxy-exporter
-
-- name: Start prometheus-haproxy-exporter
-  service:
-    name: prometheus-haproxy-exporter
-    state: started
-    enabled: true 
 
 - name: Configure prometheus-haproxy-exporter
   template:
@@ -45,3 +35,15 @@
   notify: Restart prometheus-haproxy-exporter
 
 
+
+- name: Start HAProxy
+  service:
+    name: haproxy
+    state: started
+    enabled: true
+
+- name: Start prometheus-haproxy-exporter
+  service:
+    name: prometheus-haproxy-exporter
+    state: started
+    enabled: true 

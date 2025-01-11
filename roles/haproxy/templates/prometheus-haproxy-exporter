@@ -1,3 +1,3 @@
-ARGS=" {{ haproxy_scrape_uri }}"
+ARGS="--haproxy.scrape-uri=http://lb{{inventory_hostname | replace('akhkusu','')}}:9188/stats;csv"
 
 

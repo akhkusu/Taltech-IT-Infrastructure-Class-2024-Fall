@@ -114,13 +114,13 @@
     state: directory
     owner: backup
     group: backup
-    mode: 0777
+    mode: 0755 # Readable and writable by owner, readable by group and others
 
 - name: Create mysql backup user
   community.mysql.mysql_user:
     name: "{{mysql_backup_user}}"
     password: "{{mysql_backup_password}}"
-    host: "%"
+    host: "localhost"     # Only allow local connections
     resource_limits:
       MAX_USER_CONNECTIONS: 3
     priv: "agama.*:SELECT,LOCK TABLES" #backup can only read. Root can write and read

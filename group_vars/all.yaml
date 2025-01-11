@@ -101,10 +101,6 @@ keepalived_exporter_port: 9165
 backup_exporter_port: 9111 #can't be changed as it's set up on backup host
 
 
-
-haproxy_scrape_uri:  --haproxy.scrape-uri=http://lb-1:9188/stats;csv
-
-
   
 mysql_exporter_user: exporter
 mysql_exporter_pass: !vault |

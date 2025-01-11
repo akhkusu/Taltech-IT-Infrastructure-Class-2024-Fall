@@ -304,7 +304,7 @@
                 "0": {
                   "color": "dark-red",
                   "index": 1,
-                  "text": "🗿"
+                  "text": "❌"
                 },
                 "1": {
                   "color": "green",
@@ -553,7 +553,7 @@
                 "0": {
                   "color": "dark-red",
                   "index": 1,
-                  "text": "💀"
+                  "text": "❌"
                 },
                 "1": {
                   "index": 0,
@@ -830,7 +830,7 @@
               "options": {
                 "0": {
                   "index": 1,
-                  "text": "🗿"
+                  "text": "❌"
                 },
                 "1": {
                   "index": 0,
@@ -982,7 +982,7 @@
                 "0": {
                   "color": "dark-red",
                   "index": 1,
-                  "text": "🗿"
+                  "text": "❌"
                 },
                 "1": {
                   "color": "green",
@@ -1293,7 +1293,7 @@
                 "0": {
                   "color": "dark-red",
                   "index": 1,
-                  "text": "🗿"
+                  "text": "❌"
                 },
                 "1": {
                   "color": "green",

@@ -1,6 +1,6 @@
-akhkusu-1 ansible_host=193.40.156.67 ansible_port=18822 ansible_user=ubuntu
-akhkusu-2 ansible_host=193.40.156.67 ansible_port=2022 ansible_user=ubuntu
-akhkusu-3 ansible_host=193.40.156.67 ansible_port=19522 ansible_user=ubuntu 
+akhkusu-1 ansible_host=193.40.156.67 ansible_port=3822 ansible_user=ubuntu
+akhkusu-2 ansible_host=193.40.156.67 ansible_port=8322 ansible_user=ubuntu
+akhkusu-3 ansible_host=193.40.156.67 ansible_port=11022 ansible_user=ubuntu 
 
 
 
