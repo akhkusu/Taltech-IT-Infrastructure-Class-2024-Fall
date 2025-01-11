@@ -43,12 +43,6 @@
     cache_valid_time: 86400
 
 
-# - name: Download certificates
-#   apt:
-#     name: ca-certificates=20230311ubuntu0.20.04.1
-#     update_cache: true
-
-
 - name: Install Prometheus node exporters
   ansible.builtin.apt:
     name: prometheus-node-exporter
@@ -96,7 +90,7 @@
     state: directory
     owner: backup
     group: backup
-    mode: 0777
+    mode: 0755 # Readable and writable by owner, readable by group and others
 
 - name: Install duplicity
   apt:
