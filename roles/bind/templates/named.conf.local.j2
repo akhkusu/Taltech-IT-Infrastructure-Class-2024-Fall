@@ -3,10 +3,16 @@ zone "{{domain_name}}" {
     type primary;
     allow-transfer {
         127.0.0.1;
+{% for vm in groups['dns_secondary'] %}
+        {{ hostvars[vm]['ansible_default_ipv4']['address'] }};
+{% endfor %}
         key transfer.key;
     };
     allow-update {
         127.0.0.1;
+{% for vm in groups['dns_secondary'] %}
+        {{ hostvars[vm]['ansible_default_ipv4']['address'] }};
+{% endfor %}
         key nsupdate.key;
     };
 {% else %}
@@ -24,10 +30,16 @@ zone "168.192.in-addr.arpa" {
     type primary;
     allow-transfer {
         127.0.0.1;
+{% for vm in groups['dns_secondary'] %}
+        {{ hostvars[vm]['ansible_default_ipv4']['address'] }};
+{% endfor %}
         key transfer.key;
     };
     allow-update {
         127.0.0.1;
+{% for vm in groups['dns_secondary'] %}
+        {{ hostvars[vm]['ansible_default_ipv4']['address'] }};
+{% endfor %}
         key nsupdate.key;
     };
 {% else %}
