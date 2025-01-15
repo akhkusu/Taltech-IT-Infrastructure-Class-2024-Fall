@@ -67,7 +67,7 @@
     dest: /var/lib/prometheus/.my.cnf
     owner: prometheus
     group: prometheus
-    mode: 0644
+    mode: 0600
   notify: Restart MySQL Exporter
   no_log: True
 
