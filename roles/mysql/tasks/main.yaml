@@ -114,7 +114,7 @@
     state: directory
     owner: backup
     group: backup
-    mode: 0755 # Readable and writable by owner, readable by group and others
+    mode: 0700 
 
 - name: Create mysql backup user
   community.mysql.mysql_user:
@@ -133,7 +133,7 @@
     dest: /home/backup/.my.cnf
     owner: backup
     group: backup
-    mode: 0600  # Readable only by owner
+    mode: 0600  
   no_log: true
 
 - name: Create scheduled mysql backup task with cron
