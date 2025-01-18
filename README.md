@@ -1,7 +1,4 @@
-# About
-
-Taltech IT Infrastructure Class 2024 Fall
-
+# Taltech IT Infrastructure Class 2024 Fall
 
 ---
 
